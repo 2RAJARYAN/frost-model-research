@@ -143,3 +143,76 @@ jupyter notebook           # run notebooks in order, 01 → 06
 No sensor network, no multi-node deployment, no solar-power modeling, no
 computer-vision frost verification. These are future-work material for
 the report, not this semester's build.
+
+## Methodological framework (proof of concept)
+
+**Problem.** Many agricultural regions have no locally observed,
+frost-labelled data, and building a field network needs site access and
+multi-season monitoring that is not always feasible. This project tests a
+method for building a frost-risk forecasting pipeline under that
+constraint: take a physically defined, literature-validated frost rule,
+build and verify a reproducible pipeline on data that is available,
+measure how well the rule transfers where real frost observations exist,
+then apply it to the target region as a calibrated starting point that
+field data can later refine.
+
+**Label basis.** Labels are rule-derived (Omazić et al. 2024; broad and
+strict variants, always reported side by side), not observations. Results
+on derived labels are read as forecast skill for the rule's conditions.
+Claims about frost itself are made only where observed labels exist.
+
+**What each tier is for.**
+
+| Tier | Role | What it can support |
+|---|---|---|
+| 1 | Pipeline development (European daily data) | The pipeline works mechanically. Not evidence of frost skill. |
+| 2 | Rule transfer against real recorded frost (Korea, Noh et al. 2021, or Murcia as fallback) | The only empirical test of whether a rule validated in one climate holds in another. |
+| 3 | Application to an Indian region (rule-derived) | A theoretical frost/cold-risk assessment, a reusable derived dataset and a usable pipeline. Labelled theoretical until field-validated. |
+
+Noh et al. 2021 is a different task (hourly classification of observed
+frost, March only, balanced training data). Its reported scores are
+context. Compare directly only if its label, season and sampling are
+reproduced.
+
+**Tier 2 evaluation protocol** (report every stage, whatever the outcome):
+
+1. **Unadjusted transfer:** apply the published rule unchanged; report
+   POD, POFD and Peirce skill against observed frost.
+2. **Calibrated transfer:** tune the temperature threshold and dew-point
+   gate on training years/stations only, then test on held-out
+   years/stations.
+3. **Forecast evaluation:** compare the models with persistence and a
+   climatology-plus-persisted-anomaly baseline, against observed frost.
+
+Report per station group and leave-one-group-out, with block-bootstrap
+confidence intervals. Do not rank models whose differences fall inside
+the intervals.
+
+**Success criteria (fix BEFORE running Tier 2):**
+(a) the unadjusted rule beats the climatology baseline in Peirce skill by
+at least `[X]`; (b) calibration recovers at least `[Y]%` of the gap
+between the unadjusted rule and the best achievable threshold on held-out
+data.
+
+**Reading the outcome.**
+
+- Rule works as-is: robust across climates.
+- Works only after recalibration: thresholds are climate-specific. The
+  size of the shift sets the sensitivity range used in Tier 3.
+- Fails: identify which part broke (temperature level or dew-point gate).
+- Models add little over baselines: prefer the simpler approach for
+  deployment.
+
+**Refinement loop.** When field observations exist, recalibrate the
+threshold, dew-point gate and model weights against them, and version the
+updated configuration with its training description and known
+limitations. Thresholds are config values and exported metadata records
+the data and features used, so this needs no restructuring.
+
+**Scope and limitations.** Tier 2 supports the claim that the method
+(rule plus calibration) transfers across the climates tested. It does not
+establish performance in India, which stays a hypothesis for field
+validation. Derived labels cannot capture black frost, snow-cover
+observation effects or local cold-air pooling, and gridded data can
+understate extreme local minima. Results are a proof of concept for the
+method, not a validated frost model for the target region.
