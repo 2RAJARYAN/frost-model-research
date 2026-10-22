@@ -145,7 +145,7 @@ def load_winter(gsod_dir):
     df = pd.concat(parts, ignore_index=True)
     df["season"] = df["DATE"].dt.year.where(df["DATE"].dt.month >= 11, df["DATE"].dt.year - 1)
     df = df[(df["season"] >= START_YEAR) & (df["season"] < END_YEAR)]
-    print(f"read {len(files)} files: {raw_rows:,} rows → {len(df):,} winter rows kept")
+    print(f"read {len(files)} files: {raw_rows:,} rows -> {len(df):,} winter rows kept")
     return df
 
 def cmd_summarize(args):
@@ -183,9 +183,9 @@ def cmd_summarize(args):
     kept = summ[summ["keep"]]
     print(f"\n{len(kept)} of {len(summ)} stations have >= {MIN_COVERAGE:.0%} winter coverage ({START_YEAR}-{END_YEAR})")
     for t in THRESHOLDS_C:
-        print(f"  total frost nights Tmin <= {t} C among kept stations: {int(kept[f'nights_le_{t}C'].sum())}")
-    print(f"  Omazic‑style (approx) nights: {int(kept['nights_omazic_approx'].sum())}")
-    print(f"saved → {args.out} and winter_data.csv.gz")
+        print(f"  total frost nights Tmin <= {t} C among kept stations: {int(kept[f'nights_le_{t}C'].sum())}")
+    print(f"  Omazic-style (approx) nights: {int(kept['nights_omazic_approx'].sum())}")
+    print(f"saved -> {args.out} and winter_data.csv.gz")
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
