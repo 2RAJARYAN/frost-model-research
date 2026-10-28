@@ -1,0 +1,4 @@
+method,threshold,mae,mae_cold,pod,pofd,pss,pss_lo,pss_hi,dPSS_vs_core,dPSS_ci,dMAE_vs_core,dMAE_ci
+core (temp+humidity),7.25,1.079,1.62,0.981,0.1661,0.815,0.789,0.84,,,,
++ pressure change,7.25,1.07,1.615,0.978,0.1659,0.812,0.783,0.839,-0.003,"[-0.011, 0.002]",-0.009,"[-0.013, -0.004]"
++ pressure change + wind,7.25,1.069,1.605,0.978,0.1655,0.812,0.784,0.839,-0.003,"[-0.009, 0.002]",-0.01,"[-0.015, -0.006]"

@@ -25,6 +25,8 @@ NAMING CONVENTION
   Rate of change:      "{col}_roc{periods}"
   Dew point:           "dew_point_c"             deg C
   Dew point depression:"dew_point_depression_c"  deg C, = temp - dew_point
+  Daily range / depression: "diurnal_range_c" = tmax - tmin,
+                       "tmean_dewp_depression_c" = tmean - mean dew point
   Cyclical day-of-year:"doy_sin", "doy_cos"
   Cyclical hour-of-day:"hour_sin", "hour_cos"     (only added if the input
                                                    timestamps carry a
@@ -189,6 +191,17 @@ def add_cyclical_time_features(
         out["hour_sin"] = np.sin(2 * np.pi * hour / 24.0)
         out["hour_cos"] = np.cos(2 * np.pi * hour / 24.0)
 
+    return out
+
+
+def add_daily_range_features(
+    df: pd.DataFrame, tmin_col: str, tmax_col: str, tmean_col: str, dewp_col: str
+) -> pd.DataFrame:
+    """Adds `diurnal_range_c` (tmax - tmin) and `tmean_dewp_depression_c` (tmean - mean dew point).
+    Used by the India (Tier 3) feature set; Repo B must compute these identically."""
+    out = df.copy()
+    out["diurnal_range_c"] = out[tmax_col] - out[tmin_col]
+    out["tmean_dewp_depression_c"] = out[tmean_col] - out[dewp_col]
     return out
 
 

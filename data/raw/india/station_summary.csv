@@ -1,0 +1,44 @@
+STATION,name,lat,lon,elev_m,winter_days_valid,seasons_with_data,pct_min_derived,explicit_winter_days,nights_le_3C,nights_le_4C,nights_le_5C,nights_strict_le_3C,nights_strict_le_4C,nights_strict_le_5C,nights_explicit_le_4C,winters_ge3_le_3C,winters_ge3_le_4C,winters_ge3_le_5C,coverage,coverage_active,per_season_le_4C,keep_coverage,keep_quality,keep,keep_reason,role,note
+42071099999,"AMRITSAR, IN",31.709594,74.797264,230.42,5160,35,41.0,3042,752,1086,1512,638,838,1018,717,35,35,35,0.98,0.98,31.03,True,True,True,ok,event_station,"core, FLAGGED: Amritsar (outlier vs gridded data and Attri; run with and without)"
+42131099999,"HISSAR, IN",29.179444,75.755336,213.36,5256,35,33.1,3518,163,299,518,133,212,328,281,17,21,25,0.99,0.99,8.54,True,True,True,ok,event_station,core: Hisar
+42101099999,"PATIALA, IN",30.3333333,76.4666666,251.0,5155,35,17.5,4252,89,228,497,64,124,195,206,13,28,35,0.98,0.98,6.51,True,True,True,ok,event_station,core: Patiala
+42170099999,"CHURU, IN",28.25,74.9166666,291.0,1463,10,10.8,1305,125,192,291,125,184,268,187,10,10,10,0.28,0.97,19.2,False,True,False,short record / low coverage,excluded,
+42361099999,"GWALIOR, IN",26.293336,78.227753,188.06,5071,35,19.2,4097,60,169,352,51,147,275,146,11,23,30,0.96,0.96,4.83,True,True,True,ok,event_station,secondary: Gwalior
+42165099999,"BIKANER, IN",28.0,73.3,224.0,4318,35,37.1,2718,75,146,283,72,138,264,116,13,18,27,0.82,0.82,4.17,True,True,True,ok,event_station,secondary: Bikaner
+42123099999,"GANGANAGAR, IN",29.9166666,73.9166666,177.0,3160,27,56.4,1379,53,141,284,37,96,175,71,8,17,23,0.6,0.78,5.22,True,False,True,anchor exception (derived-min share waived),event_station,"ANCHOR: Sri Ganganagar, ~37 km from Abohar (primary Kinnow site)"
+42182099999,"SAFDARJUNG, IN",28.584511,77.205783,214.88,5248,35,12.4,4598,43,128,326,37,95,201,123,6,17,33,0.99,0.99,3.66,True,True,True,ok,event_station,secondary: Delhi Safdarjung (do not also count IGI: same city)
+42369099999,"LUCKNOW, IN",26.760594,80.889339,124.96,5235,35,34.1,3449,50,115,249,38,66,136,84,8,16,26,0.99,0.99,3.29,True,True,True,ok,event_station,secondary: Lucknow
+42260099999,"AGRA, IN",27.155831,77.960892,167.94,1897,34,15.1,1611,55,105,199,40,78,145,100,8,13,21,0.36,0.37,3.09,False,True,False,short record / low coverage,excluded,
+42181099999,"INDIRA GANDHI INTERNATIONAL, IN",28.5665,77.103088,236.82,4314,29,79.7,874,42,103,231,30,69,137,3,5,14,23,0.82,0.99,3.55,True,False,False,Tmin mostly derived (warm-biased),excluded,
+42148099999,"PANTNAGAR, IN",29.0333333,79.4666666,233.0,850,9,0.7,844,38,79,139,32,65,107,79,6,6,6,0.16,0.63,8.78,False,True,False,short record / low coverage,excluded,
+42348099999,"JAIPUR, IN",26.824192,75.812161,384.96,5118,35,34.9,3330,31,78,161,29,73,150,69,5,11,21,0.97,0.97,2.23,True,True,True,ok,event_station,secondary: Jaipur
+42567099999,"KHAJURAHO, IN",24.9833333,79.9166666,217.0,1381,10,4.9,1314,28,60,103,27,53,88,60,3,6,9,0.26,0.91,6.0,False,True,False,short record / low coverage,excluded,
+42591099999,"GAYA, IN",24.744308,84.951175,115.82,4702,35,30.2,3280,22,57,150,19,41,90,49,4,8,20,0.89,0.89,1.63,True,True,True,ok,low_event,
+42189099999,"BAREILLY, IN",28.422061,79.450842,176.78,4397,35,11.0,3914,17,50,131,9,16,33,41,1,8,16,0.83,0.83,1.43,True,True,True,ok,low_event,
+42099099999,"LUDHIANA, IN",30.8666666,75.9333333,255.0,940,7,1.1,930,25,42,78,22,35,56,41,3,5,6,0.18,0.89,6.0,False,True,False,short record / low coverage,excluded,
+42328099999,"JAISALMER, IN",26.9,70.9166666,231.0,4842,35,10.9,4316,20,39,87,20,39,84,32,2,7,15,0.92,0.92,1.11,True,True,True,ok,low_event,
+42559099999,"GUNA, IN",24.65,77.3166666,478.0,4520,35,16.5,3772,13,34,99,13,34,98,29,0,3,16,0.86,0.86,0.97,True,True,True,ok,low_event,
+42139099999,"MEERUT, IN",29.0166666,77.7166667,222.0,1323,10,0.4,1318,11,32,77,7,23,54,32,1,4,8,0.25,0.88,3.2,False,True,False,short record / low coverage,excluded,
+42571099999,"SATNA, IN",24.5666667,80.8333333,317.0,4765,35,20.2,3802,12,32,85,12,29,76,30,2,3,11,0.9,0.9,0.91,True,True,True,ok,low_event,
+42105099999,"CHANDIGARH IAFB, IN",30.7333333,76.8833333,347.0,1462,10,11.6,1292,9,30,65,4,16,34,28,0,7,9,0.28,0.97,3.0,False,True,False,short record / low coverage,excluded,
+42492099999,"PATNA, IN",25.591317,85.087992,51.81,5261,35,25.6,3913,9,22,62,7,10,27,16,2,2,8,1.0,1.0,0.63,True,True,True,ok,negative_control,negative control: Patna
+42475099999,"ALLAHABAD AIRPORT, IN",25.440064,81.733872,98.15,3033,28,39.9,1822,7,19,46,2,7,18,17,1,3,5,0.57,0.72,0.68,False,True,False,short record / low coverage,excluded,
+42273099999,"BAHRAICH, IN",27.5666666,81.6,124.0,1461,10,14.7,1246,7,19,52,3,5,10,19,1,3,5,0.28,0.97,1.9,False,True,False,short record / low coverage,excluded,
+42379099999,"GORAKHPUR, IN",26.739708,83.449708,78.94,4588,35,14.6,3920,5,19,58,4,11,29,18,0,2,10,0.87,0.87,0.54,True,True,True,ok,negative_control,negative control: Gorakhpur
+42103099999,"AMBALA, IN",30.3833333,76.7666666,272.0,1470,13,7.5,1360,4,18,63,2,7,19,17,0,3,7,0.28,0.75,1.38,False,True,False,short record / low coverage,excluded,
+42479099999,"LAL BAHADUR SHASTRI, IN",25.45,82.8666666,81.08,4305,29,73.5,1142,9,18,65,2,3,10,5,0,3,7,0.81,0.98,0.62,True,False,False,Tmin mostly derived (warm-biased),excluded,
+42339099999,"JODHPUR, IN",26.251092,73.048869,218.54,5114,35,27.5,3707,9,16,38,9,16,38,8,0,0,4,0.97,0.97,0.46,True,True,True,ok,low_event,
+42343099999,"AJMER, IN",26.45,74.6166666,486.0,1462,10,7.2,1357,2,12,30,2,12,26,11,0,1,6,0.28,0.97,1.2,False,True,False,short record / low coverage,excluded,
+42452099999,"KOTA, IN",25.160219,75.845631,273.1,4993,35,28.3,3581,7,12,27,7,10,24,10,0,2,4,0.94,0.94,0.34,True,True,True,ok,negative_control,negative control: Kota
+42463099999,"JHANSI, IN",25.491172,78.558422,244.14,1410,10,5.2,1336,3,12,22,1,6,15,12,1,2,2,0.27,0.93,1.2,False,True,False,short record / low coverage,excluded,
+42705299999,"CHANDIGARH, IN",30.673469,76.788542,308.45,464,9,100.0,0,6,11,23,3,6,9,0,0,2,4,0.09,0.34,1.22,False,False,False,short record / low coverage,excluded,
+42587099999,"DALTONGANJ, IN",24.05,84.0666666,221.0,2677,18,14.8,2282,2,11,40,2,11,34,11,0,1,6,0.51,0.98,0.61,False,True,False,short record / low coverage,excluded,
+42498099999,"BHAGALPUR, IN",25.2333333,86.95,49.0,3084,26,55.7,1365,1,5,10,0,0,0,5,0,1,1,0.58,0.79,0.19,True,False,False,Tmin mostly derived (warm-biased),excluded,
+42867099999,"DR AMBEDKAR INTERNATIONAL, IN",21.092192,79.047183,314.85,5212,35,30.6,3618,1,2,4,1,2,4,1,0,0,1,0.99,0.99,0.06,True,True,True,ok,negative_control,"negative control: Nagpur (Vidarbha, original deployment region)"
+42483099999,"VARANASI, IN",25.3,83.0166666,90.0,773,6,7.1,718,0,1,5,0,0,2,1,0,0,0,0.15,0.85,0.17,False,True,False,short record / low coverage,excluded,
+42500099999,"PURNEA, IN",25.2666666,87.4666666,38.0,1450,10,4.6,1384,1,1,6,1,1,4,1,0,0,0,0.27,0.96,0.1,False,True,False,short record / low coverage,excluded,
+42237099999,"PHALODI, IN",27.1333333,72.3666666,234.0,1,1,100.0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.01,0.0,False,False,False,short record / low coverage,excluded,
+42435099999,"BARMER, IN",25.75,71.3833333,194.0,3108,25,54.5,1413,0,0,1,0,0,1,0,0,0,0,0.59,0.82,0.0,True,False,False,Tmin mostly derived (warm-biased),excluded,
+42374099999,"AYODHA, IN",26.74828,82.16276,100.0,140,1,100.0,0,0,0,1,0,0,1,0,0,0,0,0.03,0.93,0.0,False,False,False,short record / low coverage,excluded,
+42539099999,"DEESA, IN",24.2,72.2,136.0,1098,10,2.6,1070,0,0,0,0,0,0,0,0,0,0,0.21,0.73,0.0,False,True,False,short record / low coverage,excluded,
+42574099999,"REWA, IN",24.5333333,81.3,299.0,115,1,2.6,112,0,0,4,0,0,4,0,0,0,1,0.02,0.76,0.0,False,True,False,short record / low coverage,excluded,

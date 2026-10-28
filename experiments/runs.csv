@@ -8,3 +8,46 @@ timestamp,model,params,dataset,precision,recall,f1,peirce_skill,rmse,mae
 2026-09-18 08:38,XGBoost,"34 features, default params",4City_Tier1,0.887,0.846,0.866,0.805,2.129,1.681
 2026-09-18 08:38,LightGBM,"34 features, default params",4City_Tier1,0.885,0.846,0.865,0.804,2.136,1.68
 2026-09-18 08:38,CatBoost,"34 features, default params",4City_Tier1,0.882,0.851,0.866,0.807,2.158,1.713
+2026-09-20 11:25,Persistence,None,4City_Tier1,0.836,0.832,0.834,0.769,2.763,2.107
+2026-09-20 11:26,RandomForest,"34 features, default params",4City_Tier1,0.878,0.835,0.856,0.79,2.175,1.715
+2026-09-20 11:26,XGBoost,"34 features, default params",4City_Tier1,0.887,0.846,0.866,0.805,2.129,1.681
+2026-09-20 11:26,LightGBM,"34 features, default params",4City_Tier1,0.885,0.846,0.865,0.804,2.136,1.68
+2026-09-20 11:26,CatBoost,"34 features, default params",4City_Tier1,0.882,0.851,0.866,0.807,2.158,1.713
+2026-09-20 11:27,RandomForest_Tuned,"{'n_estimators': 400, 'max_depth': None, 'min_samples_leaf': 1}",4City_Tier1,0.877,0.83,0.853,0.785,2.177,1.718
+2026-09-20 11:27,XGBoost_Tuned,"{'n_estimators': 300, 'max_depth': 7, 'learning_rate': 0.03}",4City_Tier1,0.89,0.843,0.866,0.803,2.145,1.692
+2026-09-20 11:27,LightGBM_Tuned,"{'n_estimators': 300, 'num_leaves': 31, 'learning_rate': 0.08}",4City_Tier1,0.882,0.842,0.861,0.798,2.142,1.679
+2026-09-20 11:27,CatBoost_Tuned,"{'n_estimators': 150, 'max_depth': 4, 'learning_rate': 0.08}",4City_Tier1,0.881,0.848,0.864,0.804,2.207,1.752
+2026-09-20 11:29,Persistence,None,4City_Tier1,0.836,0.832,0.834,0.769,2.763,2.107
+2026-09-20 11:30,RandomForest,"34 features, default params",4City_Tier1,0.878,0.835,0.856,0.79,2.175,1.715
+2026-09-20 11:30,XGBoost,"34 features, default params",4City_Tier1,0.887,0.846,0.866,0.805,2.129,1.681
+2026-09-20 11:30,LightGBM,"34 features, default params",4City_Tier1,0.885,0.846,0.865,0.804,2.136,1.68
+2026-09-20 11:30,CatBoost,"34 features, default params",4City_Tier1,0.882,0.851,0.866,0.807,2.158,1.713
+2026-09-20 11:31,RandomForest_Tuned,"{'n_estimators': 400, 'max_depth': None, 'min_samples_leaf': 1}",4City_Tier1,0.877,0.83,0.853,0.785,2.177,1.718
+2026-09-20 11:31,XGBoost_Tuned,"{'n_estimators': 300, 'max_depth': 7, 'learning_rate': 0.03}",4City_Tier1,0.89,0.843,0.866,0.803,2.145,1.692
+2026-09-20 11:31,LightGBM_Tuned,"{'n_estimators': 300, 'num_leaves': 31, 'learning_rate': 0.08}",4City_Tier1,0.882,0.842,0.861,0.798,2.142,1.679
+2026-09-20 11:31,CatBoost_Tuned,"{'n_estimators': 150, 'max_depth': 4, 'learning_rate': 0.08}",4City_Tier1,0.881,0.848,0.864,0.804,2.207,1.752
+2026-09-20 11:32,Persistence,None,4City_Tier1,0.836,0.832,0.834,0.769,2.763,2.107
+2026-09-20 11:32,RandomForest,"34 features, default params",4City_Tier1,0.878,0.835,0.856,0.79,2.175,1.715
+2026-09-20 11:32,XGBoost,"34 features, default params",4City_Tier1,0.887,0.846,0.866,0.805,2.129,1.681
+2026-09-20 11:32,LightGBM,"34 features, default params",4City_Tier1,0.885,0.846,0.865,0.804,2.136,1.68
+2026-09-20 11:32,CatBoost,"34 features, default params",4City_Tier1,0.882,0.851,0.866,0.807,2.158,1.713
+2026-09-20 11:34,RandomForest_Tuned,"{'n_estimators': 400, 'max_depth': None, 'min_samples_leaf': 1}",4City_Tier1,0.877,0.83,0.853,0.785,2.177,1.718
+2026-09-20 11:34,XGBoost_Tuned,"{'n_estimators': 300, 'max_depth': 7, 'learning_rate': 0.03}",4City_Tier1,0.89,0.843,0.866,0.803,2.145,1.692
+2026-09-20 11:34,LightGBM_Tuned,"{'n_estimators': 300, 'num_leaves': 31, 'learning_rate': 0.08}",4City_Tier1,0.882,0.842,0.861,0.798,2.142,1.679
+2026-09-20 11:34,CatBoost_Tuned,"{'n_estimators': 150, 'max_depth': 4, 'learning_rate': 0.08}",4City_Tier1,0.881,0.848,0.864,0.804,2.207,1.752
+2026-09-20 11:35,Persistence,None,4City_Tier1,0.836,0.832,0.834,0.769,2.763,2.107
+2026-09-20 11:36,RandomForest,"34 features, default params",4City_Tier1,0.878,0.835,0.856,0.79,2.175,1.715
+2026-09-20 11:36,XGBoost,"34 features, default params",4City_Tier1,0.887,0.846,0.866,0.805,2.129,1.681
+2026-09-20 11:36,LightGBM,"34 features, default params",4City_Tier1,0.885,0.846,0.865,0.804,2.136,1.68
+2026-09-20 11:36,CatBoost,"34 features, default params",4City_Tier1,0.882,0.851,0.866,0.807,2.158,1.713
+2026-09-20 11:37,RandomForest_Tuned,"{'n_estimators': 400, 'max_depth': None, 'min_samples_leaf': 1}",4City_Tier1,0.877,0.83,0.853,0.785,2.177,1.718
+2026-09-20 11:37,XGBoost_Tuned,"{'n_estimators': 300, 'max_depth': 7, 'learning_rate': 0.03}",4City_Tier1,0.89,0.843,0.866,0.803,2.145,1.692
+2026-09-20 11:37,LightGBM_Tuned,"{'n_estimators': 300, 'num_leaves': 31, 'learning_rate': 0.08}",4City_Tier1,0.882,0.842,0.861,0.798,2.142,1.679
+2026-09-20 11:37,CatBoost_Tuned,"{'n_estimators': 150, 'max_depth': 4, 'learning_rate': 0.08}",4City_Tier1,0.881,0.848,0.864,0.804,2.207,1.752
+2026-10-27 18:38,"Persistence [India core, thr 7.25]","rule-derived label Tmin<=4C, 1-day horizon, test 2018-2024",India_Tier3_pooled,0.171,0.972,,0.797,1.716,1.318
+2026-10-27 18:38,"Climatology+persisted anomaly [India core, thr 6.25]","rule-derived label Tmin<=4C, 1-day horizon, test 2018-2024",India_Tier3_pooled,0.257,0.859,,0.767,nan,nan
+2026-10-27 18:38,"Logistic regression (classifier) [India core, thr 0.36]","rule-derived label Tmin<=4C, 1-day horizon, test 2018-2024",India_Tier3_pooled,0.194,0.982,,0.83,nan,nan
+2026-10-27 18:38,"RandomForest [India core, thr 7.0]","rule-derived label Tmin<=4C, 1-day horizon, test 2018-2024",India_Tier3_pooled,0.196,0.986,,0.836,1.398,1.071
+2026-10-27 18:38,"XGBoost [India core, thr 6.5]","rule-derived label Tmin<=4C, 1-day horizon, test 2018-2024",India_Tier3_pooled,0.24,0.958,,0.846,1.396,1.067
+2026-10-27 18:38,"LightGBM [India core, thr 7.25]","rule-derived label Tmin<=4C, 1-day horizon, test 2018-2024",India_Tier3_pooled,0.177,0.988,,0.818,1.396,1.07
+2026-10-27 18:38,"CatBoost [India core, thr 6.5]","rule-derived label Tmin<=4C, 1-day horizon, test 2018-2024",India_Tier3_pooled,0.238,0.963,,0.849,1.401,1.073

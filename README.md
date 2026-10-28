@@ -119,10 +119,35 @@ this doesn't get silently fed into a dew-point formula at the wrong scale.
       on the same 4-city test set (`src/models.py`,
       `05_model_training.ipynb`); feature importance run, wind flagged as
       "nice-to-have, not must-have" for Repo B pending Tier 3 confirmation
-- [ ] Hyperparameter tuning on `val.csv` (currently unused)
-- [ ] Regional calibration on Tier 3 data (`06_regional_calibration.ipynb`)
-- [ ] `src/export_model.py`, feature-importance handoff to Repo B
-- [ ] Inference latency/memory benchmark on the actual Pi
+- [x] Hyperparameter tuning on `val.csv` — done, honestly: did NOT
+      improve on untuned defaults within this search budget (see
+      `reports/comparison_table.md`)
+- [x] `src/export_model.py`, feature-importance handoff to Repo B —
+      `models/v1_model.cbm` + `models/v1_metadata.json` exported.
+      **Not yet deployable as-is**: trained with one-hot city columns
+      that don't exist at a single deployment site — flagged explicitly
+      in the metadata, not silently left as a surprise for Repo B
+- [x] **Tier 3 (India) dataset and first model shipped** (proof of concept, rule-derived labels):
+      `data/processed/india_tier3.csv.gz` (62,665 station-days, 19 GSOD stations, next-day Tmin <= 4 C
+      labels, season split), `models/india_v1_*` (CatBoost + a numpy-only logistic-regression JSON).
+      On held-out winters 2018-2024: Peirce skill about 0.85 vs 0.80 for a tuned persistence rule; the
+      gain is real but modest and comes from fewer false alarms, not better cold-night accuracy.
+      Temperature + humidity suffice (pressure and wind add nothing detectable). Full write-up:
+      `reports/india_tier3_results.md`; dataset documentation: `reports/india_dataset_card.md`
+- [ ] Abohar-specific gridded dataset and calibrated threshold (needs NASA POWER pull; evidence in
+      `data/raw/india/grid_threshold_calibration.csv`), Kinnow threshold sourcing, IMD station data
+- [ ] Tier 2 (observed-frost transfer test); `06_regional_calibration.ipynb` was replaced by
+      `scripts/build_india_dataset.py` and `scripts/train_india_models.py`
+- [ ] Repo B integration (`feature_pipeline.py`), Pi latency/memory benchmark
+
+## Reproduce Tier 3 (India)
+
+```bash
+python scripts/gsod_download.py stations && python scripts/gsod_download.py download && python scripts/gsod_download.py summarize
+python scripts/build_india_dataset.py                 # dataset + data card
+python scripts/train_india_models.py --log --export   # models, tables, ~90 s on one core
+python -m pytest tests/ scripts/
+```
 
 ## Setup
 
@@ -137,3 +162,76 @@ jupyter notebook           # run notebooks in order, 01 → 06
 No sensor network, no multi-node deployment, no solar-power modeling, no
 computer-vision frost verification. These are future-work material for
 the report, not this semester's build.
+
+## Methodological framework (proof of concept)
+
+**Problem.** Many agricultural regions have no locally observed,
+frost-labelled data, and building a field network needs site access and
+multi-season monitoring that is not always feasible. This project tests a
+method for building a frost-risk forecasting pipeline under that
+constraint: take a physically defined, literature-validated frost rule,
+build and verify a reproducible pipeline on data that is available,
+measure how well the rule transfers where real frost observations exist,
+then apply it to the target region as a calibrated starting point that
+field data can later refine.
+
+**Label basis.** Labels are rule-derived (Omazić et al. 2024; broad and
+strict variants, always reported side by side), not observations. Results
+on derived labels are read as forecast skill for the rule's conditions.
+Claims about frost itself are made only where observed labels exist.
+
+**What each tier is for.**
+
+| Tier | Role | What it can support |
+|---|---|---|
+| 1 | Pipeline development (European daily data) | The pipeline works mechanically. Not evidence of frost skill. |
+| 2 | Rule transfer against real recorded frost (Korea, Noh et al. 2021, or Murcia as fallback) | The only empirical test of whether a rule validated in one climate holds in another. |
+| 3 | Application to an Indian region (rule-derived) | A theoretical frost/cold-risk assessment, a reusable derived dataset and a usable pipeline. Labelled theoretical until field-validated. |
+
+Noh et al. 2021 is a different task (hourly classification of observed
+frost, March only, balanced training data). Its reported scores are
+context. Compare directly only if its label, season and sampling are
+reproduced.
+
+**Tier 2 evaluation protocol** (report every stage, whatever the outcome):
+
+1. **Unadjusted transfer:** apply the published rule unchanged; report
+   POD, POFD and Peirce skill against observed frost.
+2. **Calibrated transfer:** tune the temperature threshold and dew-point
+   gate on training years/stations only, then test on held-out
+   years/stations.
+3. **Forecast evaluation:** compare the models with persistence and a
+   climatology-plus-persisted-anomaly baseline, against observed frost.
+
+Report per station group and leave-one-group-out, with block-bootstrap
+confidence intervals. Do not rank models whose differences fall inside
+the intervals.
+
+**Success criteria (fix BEFORE running Tier 2):**
+(a) the unadjusted rule beats the climatology baseline in Peirce skill by
+at least `[X]`; (b) calibration recovers at least `[Y]%` of the gap
+between the unadjusted rule and the best achievable threshold on held-out
+data.
+
+**Reading the outcome.**
+
+- Rule works as-is: robust across climates.
+- Works only after recalibration: thresholds are climate-specific. The
+  size of the shift sets the sensitivity range used in Tier 3.
+- Fails: identify which part broke (temperature level or dew-point gate).
+- Models add little over baselines: prefer the simpler approach for
+  deployment.
+
+**Refinement loop.** When field observations exist, recalibrate the
+threshold, dew-point gate and model weights against them, and version the
+updated configuration with its training description and known
+limitations. Thresholds are config values and exported metadata records
+the data and features used, so this needs no restructuring.
+
+**Scope and limitations.** Tier 2 supports the claim that the method
+(rule plus calibration) transfers across the climates tested. It does not
+establish performance in India, which stays a hypothesis for field
+validation. Derived labels cannot capture black frost, snow-cover
+observation effects or local cold-air pooling, and gridded data can
+understate extreme local minima. Results are a proof of concept for the
+method, not a validated frost model for the target region.

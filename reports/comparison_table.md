@@ -62,6 +62,33 @@ Basel alone and are **not directly comparable** to what follows.
 | LightGBM | 0.885 | 0.846 | 0.865 | 0.804 | 2.14 | 1.68 |
 | CatBoost | 0.882 | 0.851 | **0.866** | **0.807** | 2.16 | 1.71 |
 
+### Hyperparameter tuning — did it help? No.
+
+Tuned on `val.csv` (a modest, non-exhaustive grid; RF's search was
+limited to an offline run due to a single-core dev environment), then
+evaluated once on the held-out test set:
+
+| Model | Untuned Peirce | Tuned Peirce |
+|---|---|---|
+| Random Forest | 0.790 | 0.785 |
+| XGBoost | 0.805 | 0.803 |
+| LightGBM | 0.804 | 0.798 |
+| CatBoost | **0.807** | 0.804 |
+
+Every tuned result is marginally *below* its untuned counterpart —
+differences small enough to plausibly be noise. Honest conclusion:
+default hyperparameters were already reasonable at this data scale; a
+larger search on multi-core hardware is future work, not a claim this
+search already exhausted the possibilities. **Model exported: untuned
+CatBoost** (`models/v1_model.cbm` + `models/v1_metadata.json`).
+
+**Important, concrete limitation of this export, not a generic one:**
+its feature list includes one-hot columns for the 4 European training
+cities. A single Warora deployment will never populate any of them — this
+exact artifact cannot run there as-is. Retraining on Tier 3 data without
+cross-city one-hot features is required before this is deployable, not
+just before it's validated on Indian data.
+
 All four beat Persistence on both MAE and Peirce skill, on the same
 4-city test data. Differences *between* the four models are modest at
 this untuned stage — XGBoost/LightGBM edge ahead on MAE, CatBoost
@@ -102,6 +129,24 @@ temperature history. **This is a first-pass answer on mid-latitude
 European data, not a final one** — re-check once Tier 3 (Warora-region)
 data exists before committing to a hardware decision, since local climate
 dynamics may weight wind differently there.
+
+## Tier 3 (India) — pooled stations, rule-derived label (next-day Tmin <= 4 C), test winters 2018-2024
+
+Not comparable to the Europe tables above (different data, ~3% prevalence, season split, thresholds tuned on
+validation, 95% block-bootstrap CIs). Full results, limitations and the sensor ablation are in
+`reports/india_tier3_results.md`.
+
+| Method | Alert threshold | Peirce skill [95% CI] | POD | POFD | Alerts |
+|---|---|---|---|---|---|
+| Persistence (tuned threshold) | 7.25 C | 0.797 [0.775, 0.819] | 0.972 | 0.175 | 2,467 |
+| CatBoost | 6.5 C | 0.849 [0.825, 0.872] | 0.963 | 0.114 | 1,752 |
+| XGBoost | 6.5 C | 0.846 | 0.958 | | |
+| Logistic regression (class-weighted) | p >= 0.36 | 0.830 | | | |
+
+CatBoost, XGBoost and Random Forest are statistically tied; the models beat tuned persistence by +0.02 to +0.05
+(paired intervals exclude zero) via fewer false alarms, not better cold-night error (MAE on cold nights ~1.4 C for
+all). The Basel finding (classifier recall above threshold-rule recall) did **not** reverse at rare prevalence:
+at nominal thresholds the classifier still has far higher recall; after validation tuning the gap disappears.
 
 ## Literature reference points (not directly comparable — different
 data, regions, horizons, and label definitions; positioning only, not a
