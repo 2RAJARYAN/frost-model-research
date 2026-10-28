@@ -111,8 +111,10 @@ WANTED_COLS = {"STATION", "DATE", "LATITUDE", "LONGITUDE", "ELEVATION", "NAME",
                "TEMP", "DEWP", "MAX", "MIN", "MIN_ATTRIBUTES",
                "SLP", "STP", "VISIB", "WDSP", "PRCP", "FRSHTT"}
 # GSOD "missing" sentinels
+# NOTE: GSOD's missing code for STP is 999.9 (NOT 9999.9). With the wrong code, STP stayed a
+# constant 999.9 in winter_data.csv.gz and silently produced all-zero pressure features.
 MISSING = {"TEMP": 9999.9, "DEWP": 9999.9, "MAX": 9999.9, "MIN": 9999.9,
-           "SLP": 9999.9, "STP": 9999.9, "VISIB": 999.9, "WDSP": 999.9, "PRCP": 99.99}
+           "SLP": 9999.9, "STP": 999.9, "VISIB": 999.9, "WDSP": 999.9, "PRCP": 99.99}
 # Must match src/features.py::dew_point_from_rh (checked in selftest)
 _MAGNUS_A, _MAGNUS_B = 17.27, 237.7
 # ----------------------------------------------------------------------

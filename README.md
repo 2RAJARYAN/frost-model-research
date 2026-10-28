@@ -127,8 +127,27 @@ this doesn't get silently fed into a dew-point formula at the wrong scale.
       **Not yet deployable as-is**: trained with one-hot city columns
       that don't exist at a single deployment site — flagged explicitly
       in the metadata, not silently left as a surprise for Repo B
-- [ ] Regional calibration on Tier 3 data (`06_regional_calibration.ipynb`)
-- [ ] Inference latency/memory benchmark on the actual Pi
+- [x] **Tier 3 (India) dataset and first model shipped** (proof of concept, rule-derived labels):
+      `data/processed/india_tier3.csv.gz` (62,665 station-days, 19 GSOD stations, next-day Tmin <= 4 C
+      labels, season split), `models/india_v1_*` (CatBoost + a numpy-only logistic-regression JSON).
+      On held-out winters 2018-2024: Peirce skill about 0.85 vs 0.80 for a tuned persistence rule; the
+      gain is real but modest and comes from fewer false alarms, not better cold-night accuracy.
+      Temperature + humidity suffice (pressure and wind add nothing detectable). Full write-up:
+      `reports/india_tier3_results.md`; dataset documentation: `reports/india_dataset_card.md`
+- [ ] Abohar-specific gridded dataset and calibrated threshold (needs NASA POWER pull; evidence in
+      `data/raw/india/grid_threshold_calibration.csv`), Kinnow threshold sourcing, IMD station data
+- [ ] Tier 2 (observed-frost transfer test); `06_regional_calibration.ipynb` was replaced by
+      `scripts/build_india_dataset.py` and `scripts/train_india_models.py`
+- [ ] Repo B integration (`feature_pipeline.py`), Pi latency/memory benchmark
+
+## Reproduce Tier 3 (India)
+
+```bash
+python scripts/gsod_download.py stations && python scripts/gsod_download.py download && python scripts/gsod_download.py summarize
+python scripts/build_india_dataset.py                 # dataset + data card
+python scripts/train_india_models.py --log --export   # models, tables, ~90 s on one core
+python -m pytest tests/ scripts/
+```
 
 ## Setup
 

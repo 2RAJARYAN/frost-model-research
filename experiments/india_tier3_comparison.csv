@@ -1,0 +1,15 @@
+method,rule,threshold,mae,rmse,mae_cold,pod,pofd,pss,pss_lo,pss_hi,precision,alerts,events,val_pss_at_thr,inside_best_CI
+Persistence,nominal,4.0,1.318,1.716,1.409,0.591,0.0164,0.575,0.522,0.624,0.571,448,433,,
+Persistence,val-tuned,7.25,1.318,1.716,1.409,0.972,0.175,0.797,0.775,0.819,0.171,2467,433,0.82,False
+Climatology+persisted anomaly,nominal,4.0,,,,0.524,0.0144,0.51,0.433,0.568,0.575,395,433,,
+Climatology+persisted anomaly,val-tuned,6.25,,,,0.859,0.0922,0.767,0.691,0.827,0.257,1450,433,0.682,False
+Logistic regression (classifier),nominal,0.5,,,,0.965,0.1161,0.849,0.826,0.87,0.235,1775,433,,
+Logistic regression (classifier),val-tuned,0.36,,,,0.982,0.1515,0.83,0.808,0.851,0.194,2196,433,0.842,True
+RandomForest,nominal,4.0,1.071,1.398,1.415,0.43,0.0077,0.422,0.344,0.497,0.674,276,433,,
+RandomForest,val-tuned,7.0,1.071,1.398,1.415,0.986,0.15,0.836,0.815,0.855,0.196,2181,433,0.824,True
+XGBoost,nominal,4.0,1.067,1.396,1.385,0.471,0.0092,0.462,0.386,0.529,0.656,311,433,,
+XGBoost,val-tuned,6.5,1.067,1.396,1.385,0.958,0.1124,0.846,0.821,0.868,0.24,1729,433,0.823,True
+LightGBM,nominal,4.0,1.07,1.396,1.394,0.49,0.0093,0.48,0.407,0.545,0.66,321,433,,
+LightGBM,val-tuned,7.25,1.07,1.396,1.394,0.988,0.17,0.818,0.797,0.84,0.177,2416,433,0.824,False
+CatBoost,nominal,4.0,1.073,1.401,1.392,0.48,0.0079,0.473,0.4,0.542,0.693,300,433,,
+CatBoost,val-tuned,6.5,1.073,1.401,1.392,0.963,0.1142,0.849,0.825,0.872,0.238,1752,433,0.83,True

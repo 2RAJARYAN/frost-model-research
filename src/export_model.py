@@ -110,3 +110,34 @@ def load_metadata(metadata_path: str) -> Dict[str, Any]:
     """Convenience loader -- Repo B (or a test) reading back what a model export declared."""
     with open(metadata_path) as f:
         return json.load(f)
+
+
+def export_logreg_json(pipeline, feature_columns, path, probability_threshold, metadata=None):
+    """Export a fitted sklearn Pipeline(StandardScaler, LogisticRegression) as plain JSON so a
+    device with only numpy (or nothing) can score it. No pickle, no sklearn on the Pi."""
+    scaler, clf = pipeline.steps[0][1], pipeline.steps[-1][1]
+    payload = {
+        "model_type": "logistic_regression_standardized",
+        "feature_columns_in_order": list(feature_columns),
+        "scaler_mean": [float(x) for x in scaler.mean_],
+        "scaler_scale": [float(x) for x in scaler.scale_],
+        "coef": [float(x) for x in clf.coef_[0]],
+        "intercept": float(clf.intercept_[0]),
+        "probability_threshold": float(probability_threshold),
+        "rule": "alert if probability >= probability_threshold",
+        "formula": "p = 1 / (1 + exp(-(sum(((x - scaler_mean) / scaler_scale) * coef) + intercept)))",
+    }
+    payload.update(metadata or {})
+    with open(path, "w") as f:
+        json.dump(payload, f, indent=2)
+    return path
+
+
+def predict_logreg_json(payload, X):
+    """Score rows with an exported logistic-regression payload. X: DataFrame with the feature columns."""
+    import numpy as np
+
+    cols = payload["feature_columns_in_order"]
+    z = ((X[cols].to_numpy(float) - np.array(payload["scaler_mean"])) / np.array(payload["scaler_scale"])) @ np.array(
+        payload["coef"]) + payload["intercept"]
+    return 1.0 / (1.0 + np.exp(-z))

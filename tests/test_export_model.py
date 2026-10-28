@@ -91,3 +91,21 @@ def test_export_accepts_raw_estimator_not_just_wrapper(tmp_path):
         eval_metrics={},
     )
     assert os.path.exists(paths["model_path"])
+
+
+def test_logreg_json_round_trip_matches_sklearn(tmp_path):
+    import json
+
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.pipeline import make_pipeline
+    from sklearn.preprocessing import StandardScaler
+
+    from export_model import export_logreg_json, predict_logreg_json
+
+    X, y = _toy_data(n=200)
+    yb = (y < y.median()).astype(int)
+    pipe = make_pipeline(StandardScaler(), LogisticRegression(class_weight="balanced")).fit(X, yb)
+    path = export_logreg_json(pipe, list(X.columns), str(tmp_path / "lr.json"), 0.4, {"version": "t"})
+    payload = json.load(open(path))
+    np.testing.assert_allclose(predict_logreg_json(payload, X), pipe.predict_proba(X)[:, 1], rtol=1e-9)
+    assert payload["probability_threshold"] == 0.4 and payload["feature_columns_in_order"] == list(X.columns)

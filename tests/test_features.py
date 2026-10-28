@@ -8,6 +8,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from features import (  # noqa: E402
     add_cyclical_time_features,
+    add_daily_range_features,
     add_dew_point_features,
     add_lag_features,
     add_rate_of_change,
@@ -92,3 +93,10 @@ def test_cyclical_hour_of_day_is_added_for_sub_daily_data():
     out = add_cyclical_time_features(df, date_col="DATE")
     assert "hour_sin" in out.columns
     assert "hour_cos" in out.columns
+
+
+def test_add_daily_range_features():
+    df = pd.DataFrame({"tmin": [2.0], "tmax": [20.0], "tmean": [10.0], "dewp": [4.0]})
+    out = add_daily_range_features(df, "tmin", "tmax", "tmean", "dewp")
+    assert out["diurnal_range_c"].iloc[0] == 18.0
+    assert out["tmean_dewp_depression_c"].iloc[0] == 6.0
